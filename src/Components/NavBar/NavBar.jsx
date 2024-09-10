@@ -4,24 +4,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ContextSource } from "../ContextAPI/ContextAPI";
 
 const NavBar = () => {
-  const { handlelogIn, user, handlelogOut } = useContext(ContextSource)
+  const { user, logOut } = useContext(ContextSource)
   console.log(user);
 
   const navigate = useNavigate()
 
-  const handlelogouts = async() => {
-   await handlelogOut()
-      .then(res => {
-        console.log(res);
-        if (res) {
-          navigate('/auth')
-        }
-
-      })
-      .catch(err => {
-        console.log(err);
-
-      })
+  const handlelogouts = (e) => {
+    e.preventDefault()
+    logOut()
+    navigate('/auth')
   }
   return (
     <section className="bg-[#16325B] text-white p-3">

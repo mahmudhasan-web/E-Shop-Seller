@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import app from '../Firebase/Firebase.config';
 
@@ -21,7 +21,7 @@ const ContextAPI = ({ children }) => {
         setloading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
-    const handlelogOut = () => {
+    const logOut = () => {
         setloading(true)
         return signOut(auth)
     }
@@ -29,13 +29,11 @@ const ContextAPI = ({ children }) => {
 
     useEffect(() => {
         return onAuthStateChanged(auth, (customer) => {
-          setloading(false)
-            if (customer) {
-                setuser(customer)
-            }
+            setuser(customer)
+            setloading(false)
         })
     }, [auth, setloading]);
-    const value = { handleProfile, handelRegister, handlelogIn, handlelogOut, user, loading }
+    const value = { handleProfile, handelRegister, handlelogIn, logOut, user, loading }
     return <ContextSource.Provider value={value}>{children}</ContextSource.Provider>
 };
 
