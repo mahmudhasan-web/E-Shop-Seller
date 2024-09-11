@@ -25,6 +25,8 @@ const Registration = () => {
             alert("Captcha Right")
             if (data?.image) {
                 const image = data?.image[0]
+
+                // const condition = Boolean()
                 axios.post('https://api.imgbb.com/1/upload?key=18fb354e6b4e44c25c7b877a072a961d', { image },
                     {
                         headers: {

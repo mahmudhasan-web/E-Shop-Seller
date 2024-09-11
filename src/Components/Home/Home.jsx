@@ -1,15 +1,17 @@
 import Lottie from "lottie-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import seller from "../../../public/seler.json";
+import { ContextSource } from "../ContextAPI/ContextAPI";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {user} = useContext(ContextSource)
   return (
     <section className="flex justify-around my-10 p-1">
       <div className="Info bg-gray-200">
-        <div>
-          <img src="" alt="" />
-          <h1>Welcome Back ....</h1>
+        <div className="flex gap-10 p-5">
+          <img src={user?.photoURL} className="w-40 h-40 rounded-full object-cover" alt="" />
+          <h1 className="text-4xl font-semibold">Welcome Back <br />{user?.displayName}</h1>
         </div>
         <div>
           <h1>Your Products</h1>

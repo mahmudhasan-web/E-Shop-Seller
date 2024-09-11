@@ -1,7 +1,10 @@
 import { Button } from "@mui/material";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ContextSource } from "../ContextAPI/ContextAPI";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
+import { set } from "react-hook-form";
 
 const NavBar = () => {
   const { user, logOut } = useContext(ContextSource)
@@ -81,6 +84,8 @@ const LogIn = () => {
 
   const emailRef = useRef()
   const passwordRef = useRef()
+  const [passControl, setpassControl] = useState(false);
+  const [hide, setHide] = useState('password')
   const { handlelogIn } = useContext(ContextSource)
   const navigate = useNavigate()
 
@@ -103,12 +108,21 @@ const LogIn = () => {
     }
 
   }
-
+const handlePassword =()=>{
+  setpassControl(!passControl)
+  if (passControl) {
+    setHide('text')
+  }
+  else{
+    setHide('password')
+  }
+}
   return (
-    <section className="flex gap-2">
+    <section className="flex gap-2 relative">
       <input ref={emailRef} type="text" placeholder="Enter Your Email " className="w-60  p-1 bg-white text-black rounded-md" />
-      <input ref={passwordRef} type="password" placeholder="Enter Your Password" className="w-60  p-1 bg-white text-black rounded-md" />
+      <input ref={passwordRef} type={`${hide}`} placeholder="Enter Your Password" className="w-60  p-1 bg-white text-black rounded-md" />
       <button onClick={handleLog} className="p-2 border-2 rounded-md font-semibold">LogIn</button>
+      <button className="text-xl absolute z-50 text-black right-20 top-1/4" onClick={handlePassword}>{passControl == false ? <FaEye /> : <IoEyeOff />}</button>
     </section>
   )
 }

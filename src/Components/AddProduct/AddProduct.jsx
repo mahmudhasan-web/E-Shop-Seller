@@ -1,10 +1,15 @@
 import { Button } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import axios from "axios"
+import { ContextSource } from "../ContextAPI/ContextAPI";
+import useAxios, { AxiosSource } from "../Hooks/useAxios";
+import Swal from 'sweetalert2'
 
 const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState([]);
-  const [imageArray, setImageArray] = useState();
+  const {user} = useContext(ContextSource)
+  const axiosLink = useAxios(AxiosSource)
+  // const [imageArray, setImageArray] = useState();
   const image = useRef();
   let hostImageArray = []
   const handleImage = (e) => {
@@ -12,7 +17,7 @@ const AddProduct = () => {
     const img = Array.from(image.current.files);
     const imageURL = img?.map((e) => URL.createObjectURL(e));
     setImagePreview(imageURL);
-    setImageArray(img)
+    // setImageArray(img)
 
     console.log(imageURL);
   };
@@ -29,6 +34,7 @@ const AddProduct = () => {
     const type = from.type.value
     const quantity = from.quantity.value
     const details = from.details.value
+    const email = user?.email
 
     console.log(image);
 
@@ -58,24 +64,39 @@ const AddProduct = () => {
         formData.append('image', e);
         console.log(formData);
 
-        axios.post('https://api.imgbb.com/1/upload?key=18fb354e6b4e44c25c7b877a072a961d', formData,
-          {
-            headers: {
-              "content-type": "multipart/form-data"
-            }
-          })
-          .then(res => {
-            console.log(res);
-            hostImageArray.push(res?.data?.data?.display_url)
-            if (hostImageArray.length == image.length) {
-              const AddProduct = {name,brand,price,quantity,type,details,hostImageArray}
-              console.log(AddProduct);
-            }
-          })
-          .catch(err => {
-            console.log(err);
-
-          })
+        if (user) {
+          axios.post('https://api.imgbb.com/1/upload?key=18fb354e6b4e44c25c7b877a072a961d', formData,
+            {
+              headers: {
+                "content-type": "multipart/form-data"
+              }
+            })
+            .then(res => {
+              console.log(res);
+              hostImageArray.push(res?.data?.data?.display_url)
+              if (hostImageArray.length == image.length) {
+                const AddProduct = {name,brand,price,quantity,type,details,hostImageArray, email}
+                console.log(AddProduct);
+                
+                axiosLink.post('/addproducts', AddProduct)
+                .then(res=>{
+                  console.log(res);
+                  Swal.fire("Your product is successfully added");
+                  
+                })
+                .catch(err=>{
+                  console.log(err);
+                })
+              }
+            })
+            .catch(err => {
+              console.log(err);
+  
+            })
+        }
+        else{
+          alert('Please login to add product')
+        }
 
       })
     }

@@ -31,6 +31,13 @@ const ContextAPI = ({ children }) => {
         return onAuthStateChanged(auth, (customer) => {
             setuser(customer)
             setloading(false)
+            // if (customer) {
+            //     
+            // }
+            // else{
+            //     setuser('')
+            //     setloading(true)
+            // }
         })
     }, [auth, setloading]);
     const value = { handleProfile, handelRegister, handlelogIn, logOut, user, loading }
