@@ -18,9 +18,9 @@ const Home = () => {
         </div>
       </div>
       <div id="Update_info" className="bg-gray-100 p-2 rounded-2xl">
-        <Lottie className="w-64" animationData={seller} loop={true}></Lottie>
+        <Lottie className="w-80" animationData={seller} loop={true}></Lottie>
         <div>
-          <div className="flex justify-between text-xl font-semibold">
+          <div className="flex justify-between text-2xl font-semibold">
             <h1>Seller Information</h1>
             <button
               onClick={() => {
@@ -32,19 +32,19 @@ const Home = () => {
             </button>
           </div>
           <div>
-            <h1 className="font-semibold">Name</h1>
+            <h1 className="font-semibold text-lg">Name</h1>
             <p>User Name</p>
           </div>
           <div>
-            <h1 className="font-semibold">Email</h1>
+            <h1 className="font-semibold text-lg">Email</h1>
             <p>User email</p>
           </div>
           <div>
-            <h1 className="font-semibold">Phone</h1>
+            <h1 className="font-semibold text-lg">Phone</h1>
             <p>User Phone</p>
           </div>
           <div>
-            <h1 className="font-semibold">Location</h1>
+            <h1 className="font-semibold text-lg">Location</h1>
             <p>User Location</p>
           </div>
         </div>

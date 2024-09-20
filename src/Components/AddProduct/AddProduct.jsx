@@ -74,7 +74,7 @@ const AddProduct = () => {
             .then(res => {
               console.log(res);
               hostImageArray.push(res?.data?.data?.display_url)
-              if (hostImageArray.length == image.length) {
+              if (hostImageArray?.length == image?.length) {
                 const AddProduct = {name,brand,price,quantity,type,details,hostImageArray, email}
                 console.log(AddProduct);
                 
@@ -82,10 +82,12 @@ const AddProduct = () => {
                 .then(res=>{
                   console.log(res);
                   Swal.fire("Your product is successfully added");
-                  
+                  from.reset()
+                  setImagePreview([])
                 })
                 .catch(err=>{
                   console.log(err);
+                  Swal.fire("Your product is unsuccessfully to added");
                 })
               }
             })
@@ -103,12 +105,9 @@ const AddProduct = () => {
   }
 
 
- 
-  
-
   return (
-    <section>
-      <h1 className="text-4xl text-center font-bold">Add Your Products</h1>
+    <section className="top-20 relative">
+      <h1 className="text-4xl text-center font-bold mb-5">Add Your Products</h1>
       <div className="flex justify-around">
         <div>
           <h1 className="text-2xl text-center underline font-semibold">
@@ -125,7 +124,7 @@ const AddProduct = () => {
         </div>
         <div className="w-2/4">
           <div className="w-10/12 space-y-5">
-            <form onSubmit={handleProduct} action="">
+            <form onSubmit={handleProduct} action="" className="space-y-2">
               <div className="flex justify-between">
                 <div>
                   <label className="text-lg font-semibold" htmlFor="">
@@ -135,7 +134,7 @@ const AddProduct = () => {
                   <input
                     type="text"
                     name="name"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
                 <div>
@@ -146,7 +145,7 @@ const AddProduct = () => {
                   <input
                     type="number"
                     name="price"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
               </div>
@@ -159,7 +158,7 @@ const AddProduct = () => {
                   <input
                     type="text"
                     name="brand"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
                 <div>
@@ -170,7 +169,7 @@ const AddProduct = () => {
                   <input
                     type="number"
                     name="quantity"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
               </div>
@@ -186,7 +185,7 @@ const AddProduct = () => {
                     ref={image}
                     multiple
                     name="image"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
                 <div>
@@ -197,7 +196,7 @@ const AddProduct = () => {
                   <input
                     type="text"
                     name="type"
-                    className="border-2 p-1 rounded-xl w-72 border-black"
+                    className="border-2 p-2 rounded-xl w-72 border-black"
                   />
                 </div>
               </div>
@@ -215,7 +214,7 @@ const AddProduct = () => {
                 {/* <Button type="submit" className="w-full font-semibold" variant="contained">
                   Submit
                 </Button> */}
-                <button className="border-2 w-full bg-blue-600 text-white font-semibold p-1 rounded-2xl text-lg">Submit</button>
+                <button className="border-2 w-full bg-blue-600 text-white font-semibold p-2 rounded-2xl text-lg">Submit</button>
               </div>
             </form>
           </div>
