@@ -4,6 +4,7 @@ import axios from "axios"
 import { ContextSource } from "../ContextAPI/ContextAPI";
 import useAxios, { AxiosSource } from "../Hooks/useAxios";
 import Swal from 'sweetalert2'
+import  "./AddProduct.css";
 
 const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState([]);
